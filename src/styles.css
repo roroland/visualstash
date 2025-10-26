@@ -1,3 +1,16 @@
 @import "tailwindcss";
 
 /* Global styles can go below; Tailwind utilities come from the import above. */
+
+@layer components{
+  .btn{
+    @apply px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 cursor-pointer;
+  }
+
+  .btn-primary{
+    @apply bg-green-500 hover:bg-green-600;
+  }
+  .btn-secondary{
+    @apply bg-gray-500 hover:bg-gray-600;
+  }
+}
