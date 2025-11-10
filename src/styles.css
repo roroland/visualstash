@@ -1,7 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
 @import "tailwindcss";
 
 /* Global styles can go below; Tailwind utilities come from the import above. */
-
+@layer base {
+  :root {
+    --font-aldrich: "Aldrich", sans-serif;
+    --font-sans: var(--font-aldrich);
+  }
+}
 @layer components{
   .btn{
     @apply px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 cursor-pointer;
@@ -13,4 +19,15 @@
   .btn-secondary{
     @apply bg-gray-500 hover:bg-gray-600;
   }
+}
+@theme{
+  --color-lime-950: #525252;
+  --color-lime-800: #7A8B75;
+  --color-lime-500: #5CD43B;
+  --color-gray-950: #171215;
+  --color-gray-900: #0A0A0A;
+  --color-gray-800: #030213;
+  --color-gray-500: #525252;
+  --color-gray-100: #E5E5E5;
+  --color-gray-50: #F5F5F5;
 }

@@ -1,13 +1,12 @@
-<p>theme-list works!</p>
-<ul class="grid-cols-3 gap-4 grid">
+<ul class="grid-cols-3 gap-4 col-start-3 col-end-11 grid">
   <li *ngFor="let theme of pagedThemes">
-    <p>{{ theme.name }}</p>
+    <p class="text-lime-500">{{ theme.name }}</p>
     <img *ngIf="theme.image" class="max-w-full" [src]="theme.image" alt="{{ theme.name }}">
     <img *ngIf="theme.image" class="max-w-full aspect-auto" [src]="bigImage(theme)" alt="{{ theme.name }} - big">
   </li>
 </ul>
 
-<div class="flex items-center  gap-4 mt-4">
+<div class="flex items-center  gap-4 mt-4 col-start-1 col-end-13 justify-center">
   <button (click)="previousPage()" [disabled]="currentPage === 1" class="btn btn-primary">Previous</button>
   <span>Page {{ currentPage }} of {{ totalPages }}</span>
   <button (click)="nextPage()" [disabled]="currentPage * pageSize >= themes.length" class="btn btn-primary">Next</button>

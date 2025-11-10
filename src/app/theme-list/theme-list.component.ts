@@ -14,7 +14,6 @@ export class ThemeListComponent {
   constructor(private themeService: ThemeServiceService) {
     this.themeService.getThemes().subscribe(data => {
       this.themes = data;
-      console.log(this.themes);
     });
   }
 
