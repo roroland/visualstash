@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeServiceService, Theme } from '../theme-service.service';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-theme-list',
-  imports: [CommonModule],
+  imports: [CommonModule, CardComponent],
   templateUrl: './theme-list.component.html'
 })
 export class ThemeListComponent {
@@ -15,13 +16,6 @@ export class ThemeListComponent {
     this.themeService.getThemes().subscribe(data => {
       this.themes = data;
     });
-  }
-
-  bigImage(theme: Theme): string {
-    if (!theme.image) {
-      return '';
-    }
-    return theme.image.replace(/\/1\//, '/');
   }
 
   get pagedThemes(): Theme[] {

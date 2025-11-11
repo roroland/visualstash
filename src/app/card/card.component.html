@@ -1,0 +1,3 @@
+<p class="text-lime-500">{{ theme.name }}</p>
+    <img *ngIf="theme.image" class="max-w-full" [src]="theme.image" alt="{{ theme.name }}">
+    <img *ngIf="theme.image" class="max-w-full aspect-auto" [src]="bigImage(theme)" alt="{{ theme.name }} - big">

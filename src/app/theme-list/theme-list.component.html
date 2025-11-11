@@ -1,8 +1,6 @@
 <ul class="grid-cols-3 gap-4 col-start-3 col-end-11 grid">
   <li *ngFor="let theme of pagedThemes">
-    <p class="text-lime-500">{{ theme.name }}</p>
-    <img *ngIf="theme.image" class="max-w-full" [src]="theme.image" alt="{{ theme.name }}">
-    <img *ngIf="theme.image" class="max-w-full aspect-auto" [src]="bigImage(theme)" alt="{{ theme.name }} - big">
+    <app-card [theme]="theme"></app-card>
   </li>
 </ul>
 
