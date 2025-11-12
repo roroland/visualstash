@@ -1,3 +1,18 @@
-<p class="text-lime-500">{{ theme.name }}</p>
-    <img *ngIf="theme.image" class="max-w-full" [src]="theme.image" alt="{{ theme.name }}">
-    <img *ngIf="theme.image" class="max-w-full aspect-auto" [src]="bigImage(theme)" alt="{{ theme.name }} - big">
+<div class="grid grid-cols-1 grid-rows-[10rem_1fr_auto] gap-2 border border-solid border-gray-500 rounded-2xl">
+  <picture class="col-start-1 col-end-1 object-cover overflow-hidden">
+    <img *ngIf="theme.image" class="w-full h-auto object-cover" [src]="bigImage(theme)" alt="{{ theme.name }}">
+  </picture>
+  <!-- <img *ngIf="theme.image" class="max-w-full aspect-auto" [src]="bigImage(theme)" alt="{{ theme.name }} - big"> -->
+   <div class="p-2">
+     <h4 class="text-lime-500 max-w-full text-ellipsis text-balance overflow-x-hidden">{{ theme.name }}</h4>
+      <p class="text-sm text-gray-400">{{ theme.date }}</p>
+            <ul class="flex flex-wrap gap-1">
+        <li *ngFor="let tag of theme.tags" class="text-sm text-gray-400">{{ tag }}</li>
+      </ul>
+    </div>
+    <footer class="p-2 gap-1 flex justify-start">
+      <span class="">{{ theme.views }}</span>
+      <span class="">{{ theme.comments }}</span>
+      <span class=" ms-auto"><a [href]="theme.url" target="_blank">Link</a></span>
+    </footer>
+</div>
