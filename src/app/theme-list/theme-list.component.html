@@ -1,7 +1,5 @@
-<ul class="grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 col-start-3 col-end-11 grid">
-  <li *ngFor="let theme of pagedThemes">
-    <app-card class="h-full flex" [theme]="theme"></app-card>
-  </li>
+<ul class="grid-cols-1 grid-rows-[repeat(auto-fit,minmax(300px,1fr))] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 col-start-2 col-end-12 grid lg:grid-flow-row-dense">
+    <li app-card class="h-full flex lg:nth-of-type-[6n-1]:col-span-2 lg:nth-of-type-[6n-1]:row-span-2 lg:row-span-1 scroll-zoom" [style]="'--index:' + i" [theme]="theme" *ngFor="let theme of pagedThemes; let i = index"></li>
 </ul>
 
 <div class="flex items-center gap-4 mt-20 mb-10 col-start-1 col-end-13 justify-center">

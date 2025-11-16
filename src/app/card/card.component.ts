@@ -3,7 +3,7 @@ import { Theme } from '../theme-service.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-card',
+  selector: '[app-card]',
   imports: [CommonModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
