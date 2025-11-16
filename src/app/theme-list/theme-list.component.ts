@@ -20,6 +20,7 @@ export class ThemeListComponent {
 
   get pagedThemes(): Theme[] {
     const start = (this.currentPage - 1) * this.pageSize;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     return this.themes.slice(start, start + this.pageSize);
   }
 
