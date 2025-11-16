@@ -1,16 +1,16 @@
-<div class="grid grid-cols-1 grid-rows-[10rem_1fr_auto] gap-2 border border-solid border-gray-500 rounded-2xl">
-  <picture class="col-start-1 col-end-1 object-cover overflow-hidden">
-    <img *ngIf="theme.image" class="w-full h-auto object-cover" [src]="bigImage(theme)" alt="{{ theme.name }}">
+<div class="grid grid-cols-1 grid-rows-[1fr_min-content_auto] border border-solid border-gray-500 rounded-2xl sm:h-auto">
+  <picture class="col-start-1 col-end-1 row-start-1 -row-end-1 sm:row-auto sm:overflow-hidden aspect-video">
+    <img *ngIf="theme.image" class="w-full h-full object-cover aspect-video" [src]="bigImage(theme)" alt="{{ theme.name }}">
   </picture>
   <!-- <img *ngIf="theme.image" class="max-w-full aspect-auto" [src]="bigImage(theme)" alt="{{ theme.name }} - big"> -->
-   <div class="p-2">
-     <h4 class="text-lime-500 max-w-full text-ellipsis text-balance overflow-x-hidden">{{ theme.name }}</h4>
+   <div class="col-start-1 col-end-1 row-start-2 p-2 bg-white/75 backdrop-blur-sm">
+     <h4 class="text-lime-500 whitespace-nowrap text-ellipsis text-balance overflow-x-hidden w-full">{{ theme.name }}</h4>
       <p class="text-sm text-gray-400">{{ theme.date }}</p>
             <ul class="flex flex-wrap gap-1">
         <li *ngFor="let tag of theme.tags" class="text-sm text-gray-400">{{ tag }}</li>
       </ul>
     </div>
-    <footer class="p-2 gap-1 flex justify-start">
+    <footer class="col-start-1 col-end-1 row-start-3 p-2 gap-1 flex justify-start  bg-white/75 backdrop-blur-sm">
       <span class="">{{ theme.views }}</span>
       <span class="">{{ theme.comments }}</span>
       <span class=" ms-auto"><a [href]="theme.url" target="_blank">Link</a></span>
