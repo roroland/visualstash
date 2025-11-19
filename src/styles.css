@@ -6,6 +6,7 @@
   :root {
     --font-aldrich: "Aldrich", sans-serif;
     --font-sans: var(--font-aldrich);
+    --lqip: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 37%, #e0e0e0 63%);
   }
 }
 @layer components{
