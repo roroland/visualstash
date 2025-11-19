@@ -7,7 +7,7 @@
      <h4 class="text-lime-500 whitespace-nowrap text-ellipsis text-balance overflow-x-hidden w-full">{{ theme.name }}</h4>
       <p class="text-sm text-gray-400">{{ theme.date }}</p>
             <ul class="flex flex-wrap gap-1">
-        <li *ngFor="let tag of theme.tags" class="text-sm text-gray-100 bg-lime-700 px-1.5 py-0.5 rounded">{{ tag }}</li>
+        <li *ngFor="let tag of theme.tags" class="text-sm text-gray-100 bg-lime-700 px-1.5 py-0.5 rounded" (click)="emitFilterByTag(tag)">{{ tag }}</li>
       </ul>
     </div>
     <footer class="col-start-1 col-end-1 row-start-3 p-2 gap-1 flex justify-start  bg-white/75 backdrop-blur-sm">

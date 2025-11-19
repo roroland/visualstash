@@ -12,6 +12,7 @@ export class ThemeListComponent {
   themes: Theme[] = [];
   pageSize = 20;
   currentPage = 1;
+  selectedTag: string | null = null;
   constructor(private themeService: ThemeServiceService) {
     this.themeService.getThemes().subscribe(data => {
       this.themes = data;
@@ -38,5 +39,11 @@ export class ThemeListComponent {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+  }
+
+  onFilterByTag(tag: string) {
+    this.selectedTag = tag;
+    this.themes = this.themeService.filterTags(this.themes, tag);
+    this.currentPage = 1;
   }
 }

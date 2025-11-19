@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Theme } from '../theme-service.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Theme, ThemeServiceService } from '../theme-service.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 export class CardComponent {
 
   @Input() theme!: Theme;
+  @Output() filterByTag = new EventEmitter<string>();
 
     bigImage(theme: Theme): string {
     if (!theme.image) {
@@ -18,5 +19,7 @@ export class CardComponent {
     }
     return theme.image.replace(/\/1\//, '/');
   }
-
+  emitFilterByTag(tag: string) {
+    this.filterByTag.emit(tag);
+  }
 }

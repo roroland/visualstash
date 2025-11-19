@@ -38,4 +38,8 @@ export class ThemeServiceService {
       })
     );
   }
+
+  filterTags(themes: Theme[], tag: string): Theme[] {
+    return themes.filter(theme => theme.tags?.includes(tag));
+  }
 }
