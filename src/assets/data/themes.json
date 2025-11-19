@@ -52,23 +52,6 @@
     ]
   },
   {
-    "id": "3241",
-    "name": "REAPER Audio playback signal flow.pdf",
-    "url": "https://stash.reaper.fm/theme/3241/REAPER%20Audio%20playback%20signal%20flow.pdf",
-    "image": "https://stash.reaper.fm/50903/1/Audio%20playback%20signal%20flow%2001.JPG",
-    "downloadUrl": "https://stash.reaper.fm/50872/REAPER%20Audio%20playback%20signal%20flow.pdf",
-    "rating": 5,
-    "date": "10/31/25",
-    "size": "1020.20 KB",
-    "views": 352,
-    "comments": 0,
-    "country": "ES",
-    "tags": [
-      "reaper",
-      "pdf"
-    ]
-  },
-  {
     "id": "3055",
     "name": "Paulie7_mods.zip",
     "url": "https://stash.reaper.fm/theme/3055/Paulie7_mods.zip",
@@ -116,56 +99,6 @@
     "tags": [
       "Themes",
       "zip"
-    ]
-  },
-  {
-    "id": "3240",
-    "name": "Tukan Plugins Unofficial Guide.pdf",
-    "url": "https://stash.reaper.fm/theme/3240/Tukan%20Plugins%20Unofficial%20Guide.pdf",
-    "image": "https://stash.reaper.fm/50860/1/Tukan%20Plugins%20Unofficial%20Guide.jpg",
-    "downloadUrl": "https://stash.reaper.fm/50859/Tukan%20Plugins%20Unofficial%20Guide.pdf",
-    "rating": 5,
-    "date": "10/21/25",
-    "size": "1.20 MB",
-    "views": 454,
-    "comments": 0,
-    "country": "GB",
-    "tags": [
-      "pdf"
-    ]
-  },
-  {
-    "id": "3239",
-    "name": "Pan Modes in REAPER.pdf",
-    "url": "https://stash.reaper.fm/theme/3239/Pan%20Modes%20in%20REAPER.pdf",
-    "image": "https://stash.reaper.fm/50857/1/Pan%20Modes%2001.JPG",
-    "downloadUrl": "https://stash.reaper.fm/50855/Pan%20Modes%20in%20REAPER.pdf",
-    "rating": 0,
-    "date": "10/21/25",
-    "size": "1.06 MB",
-    "views": 132,
-    "comments": 0,
-    "country": "GB",
-    "tags": [
-      "reaper",
-      "pdf"
-    ]
-  },
-  {
-    "id": "3237",
-    "name": "Understanding Timebase in REAPER.pdf",
-    "url": "https://stash.reaper.fm/theme/3237/Understanding%20Timebase%20in%20REAPER.pdf",
-    "image": "https://stash.reaper.fm/50849/1/Timebase%20v2-01.jpg",
-    "downloadUrl": "https://stash.reaper.fm/50838/Understanding%20Timebase%20in%20REAPER.pdf",
-    "rating": 0,
-    "date": "10/20/25",
-    "size": "1.39 MB",
-    "views": 293,
-    "comments": 0,
-    "country": "ES",
-    "tags": [
-      "reaper",
-      "pdf"
     ]
   },
   {
