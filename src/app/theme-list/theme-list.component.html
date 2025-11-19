@@ -1,5 +1,6 @@
-<div class="flex items-center col-start-2 col-end-12 gap-2 mt-10 mb-4">
+<div class="flex items-center col-start-2 col-end-12 gap-2 mt-10 mb-4" *ngIf="selectedTag">
   <span class="px-1 bg-amber-400 rounded-lg">{{selectedTag}}</span>
+  <button (click)="clearTagFilter()" class="btn btn-secondary text-xs ml-2">Limpiar filtro</button>
 </div>
 <ul class="grid-cols-1 grid-rows-[repeat(auto-fit,minmax(300px,1fr))] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 col-start-2 col-end-12 grid lg:grid-flow-row-dense">
     <li app-card (filterByTag)="onFilterByTag($event)" class="h-full flex lg:nth-of-type-[6n-1]:col-span-2 lg:nth-of-type-[6n-1]:row-span-2 lg:row-span-1 scroll-zoom" [style]="'--index:' + i" [theme]="theme" *ngFor="let theme of pagedThemes; let i = index"></li>
