@@ -16,6 +16,8 @@
             "outputPath": "dist/visualstash",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "baseHref": "/visualstash/",
+            "deployUrl": "/visualstash/",
             "polyfills": [
               "zone.js"
             ],

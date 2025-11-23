@@ -1,0 +1,45 @@
+name: Update Themes
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"   # corre cada 12 horas
+  workflow_dispatch:         # permite ejecutarlo manualmente
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install cheerio node-fetch
+
+      - name: Scrape themes
+        run: node scripts/scrape-themes.js
+
+      - name: Enrich themes
+        run: node scripts/enrich-themes.js
+
+      - name: Commit themes.json if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add src/assets/data/themes.json
+          git commit -m "Update themes.json" || echo "No changes to commit"
+
+      - name: Build Angular
+        run: npm run build --if-present
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/visualstash
