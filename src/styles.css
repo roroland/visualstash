@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
 @import "tailwindcss";
 
+
 /* Global styles can go below; Tailwind utilities come from the import above. */
 @layer base {
   :root {
