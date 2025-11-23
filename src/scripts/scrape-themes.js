@@ -16,26 +16,36 @@ async function scrapePage(url) {
   $(".stash-search-result").each((_, el) => {
     const root = $(el);
 
-    const name = root.find(".stash-search-filename a").text().trim();
-    const url = BASE + root.find(".stash-search-filename a").attr("href");
-    const id = url.split("/").pop();
+    const linkEl = root.find(".stash-search-filename a");
+    const name = linkEl.text().trim();
+    const relative = linkEl.attr("href");
+    const url = BASE + relative;
+    const id = relative.split("/").pop();
 
-    const image = root.find("img").attr("src");
-    const imgAbsolute = image?.startsWith("http") ? image : BASE + image;
+    const img = root.find("img").attr("src");
+    const image = img?.startsWith("http") ? img : BASE + img;
 
-    const rating = root.find(".rating").text().trim() || null;
+    const rating = parseFloat(root.find(".rating").text().trim()) || 0;
+
     const date = root.find(".date").text().trim() || null;
-    const size = root.find(".size").text().trim() || null;
-    const views = root.find(".views").text().trim() || null;
-    const comments = root.find(".comments").text().trim() || null;
+
+    const sizeTxt = root.find(".size").text().trim();
+    const size = sizeTxt.replace("Size:", "").trim();
+
+    const viewsTxt = root.find(".views").text().trim();
+    const views = parseInt(viewsTxt.replace(/\D/g, ""), 10) || 0;
+
+    const commentsTxt = root.find(".comments").text().trim();
+    const comments = parseInt(commentsTxt.replace(/\D/g, ""), 10) || 0;
+
     const country = root.find("img.flag").attr("title") || null;
 
     items.push({
       id,
       name,
       url,
-      image: imgAbsolute || null,
-      downloadUrl: null,  // se completa luego
+      image,
+      downloadUrl: null,
       rating,
       date,
       size,
@@ -45,23 +55,31 @@ async function scrapePage(url) {
     });
   });
 
-  // detecta paginación
-  const nextLink = $(".pagination a.next").attr("href");
-  const nextPage = nextLink ? BASE + nextLink : null;
+  // paginación real: busca links que contengan ?page=
+  const nextPageRel = $('a[href*="?page="]').filter((_, el) => {
+    return $(el).text().trim().toLowerCase().includes("next");
+  }).attr("href");
+
+  const nextPage = nextPageRel ? BASE + nextPageRel : null;
 
   return { items, nextPage };
 }
 
-// Para obtener la URL real de descarga (si existe página interna)
+// Obtiene botón real de descarga
 async function resolveDownloadUrl(item) {
-  const res = await fetch(item.url);
-  const html = await res.text();
-  const $ = cheerio.load(html);
+  try {
+    const res = await fetch(item.url);
+    const html = await res.text();
+    const $ = cheerio.load(html);
 
-  const dl = $("a.stash-download-button").attr("href");
-  if (!dl) return item;
+    const dl = $("a.stash-download-button").attr("href");
+    if (dl) {
+      item.downloadUrl = dl.startsWith("http") ? dl : BASE + dl;
+    }
+  } catch {
+    // en caso de error, no rompe todo
+  }
 
-  item.downloadUrl = dl.startsWith("http") ? dl : BASE + dl;
   return item;
 }
 
@@ -74,17 +92,17 @@ async function main() {
   while (url) {
     console.log("Scraping:", url);
     const { items, nextPage } = await scrapePage(url);
-    all.push(...items);
+    all = all.concat(items);
     url = nextPage;
   }
 
-  // resolver downloadUrl una por una
-  for (let i = 0; i < all.length; i++) {
-    all[i] = await resolveDownloadUrl(all[i]);
-    console.log(`Resolved ${i+1}/${all.length}`);
-  }
+  console.log("Resolving download URLs...");
 
-  fs.writeFileSync("raw.json", JSON.stringify(all, null, 2));
+  // paralelizar para que sea rápido y no rompa el job
+  const resolved = await Promise.all(all.map(item => resolveDownloadUrl(item)));
+
+  fs.writeFileSync("raw.json", JSON.stringify(resolved, null, 2));
+
   console.log("raw.json generated");
 }
 
