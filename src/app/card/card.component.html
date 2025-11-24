@@ -1,10 +1,10 @@
 <div class="flex-1 grid grid-cols-1 grid-rows-[minmax(100px,1fr)_min-content_auto]
  border border-solid border-gray-100 rounded-2xl sm:h-auto overflow-clip">
-  <picture class="col-start-1 col-end-1 row-start-1 -row-end-1 z-0" [style]="!theme.image ? 'background: var(--lqip)' : ''">
+  <picture class="col-start-1 col-end-1 row-start-1 -row-end-1 z-0 max-h-100" [style]="!theme.image ? 'background: var(--lqip)' : ''">
     <img *ngIf="theme.image" class="w-full h-full object-cover block" style="background: var(--lqip)" [srcset]="bigImage(theme)" alt="{{ theme.name }}" loading="lazy">
   </picture>
    <div class="col-start-1 col-end-1 row-start-2 p-2 bg-white/75 backdrop-blur-sm">
-     <h4 class="text-lime-500 whitespace-nowrap text-ellipsis text-balance overflow-x-hidden w-full">{{ theme.name }}</h4>
+     <h4 class="text-lime-950 whitespace-nowrap text-ellipsis text-balance overflow-x-hidden w-full">{{ theme.name }}</h4>
       <p class="text-sm text-gray-400">{{ theme.date }}</p>
             <ul class="flex flex-wrap gap-1">
         <li *ngFor="let tag of theme.tags" class="text-sm text-gray-100 bg-lime-700 px-1.5 py-0.5 rounded" (click)="emitFilterByTag(tag)">{{ tag }}</li>
