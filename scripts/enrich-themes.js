@@ -3,9 +3,9 @@ import fs from "fs";
 
 function getExtension(url) {
   if (!url) return null;
-  const lower = url.toLowerCase();
+  const l = url.toLowerCase();
 
-  return [
+  const exts = [
     "reaperthemezip",
     "reapertheme",
     "reaperconfigzip",
@@ -14,12 +14,14 @@ function getExtension(url) {
     "7z",
     "png",
     "jpg"
-  ].find(ext => lower.endsWith("." + ext)) || null;
+  ];
+
+  return exts.find(ext => l.endsWith("." + ext)) || null;
 }
 
-function inferNameTags(name) {
-  const n = (name || "").toLowerCase();
-  let tags = [];
+function inferNameTags(name = "") {
+  const n = name.toLowerCase();
+  const tags = [];
 
   if (n.includes("default 5")) tags.push("default5");
   if (n.includes("default 7")) tags.push("default7");
@@ -38,7 +40,6 @@ function main() {
   const enriched = raw.map(item => {
     const ext = getExtension(item.downloadUrl);
     const extTags = ext ? [ext] : [];
-
     const nameTags = inferNameTags(item.name);
 
     return {
