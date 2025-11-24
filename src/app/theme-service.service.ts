@@ -26,7 +26,7 @@ export class ThemeServiceService {
   constructor(private http: HttpClient) {}
 
   getThemes(): Observable<Theme[]> {
-    return this.http.get<ThemeResponse>('assets/data/themes.json').pipe(
+    return this.http.get<ThemeResponse>('assets/data/themes.json?v=' + new Date().getTime()).pipe(
       map((res) => {
         if (!Array.isArray(res)) {
           return [];
