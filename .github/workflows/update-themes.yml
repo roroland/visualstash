@@ -29,6 +29,12 @@ jobs:
       - name: Scrape themes
         run: node scripts/scrape-themes.js
 
+      - name: Upload raw.json artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: raw-json
+          path: raw.json
+
       - name: Enrich themes
         run: node scripts/enrich-themes.js
 
