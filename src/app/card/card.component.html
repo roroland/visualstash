@@ -1,18 +1,42 @@
 <div class="flex-1 grid grid-cols-1 grid-rows-[minmax(100px,1fr)_min-content_auto]
- border border-solid border-gray-100 rounded-2xl sm:h-auto overflow-clip">
-  <picture class="col-start-1 col-end-1 row-start-1 -row-end-1 z-0 max-h-100" [style]="!theme.image ? 'background: var(--lqip)' : ''">
-    <img *ngIf="theme.image" class="w-full h-full object-cover block" style="background: var(--lqip)" [srcset]="bigImage(theme)" alt="{{ theme.name }}" loading="lazy">
+ border border-solid border-gray-100 rounded-2xl sm:h-auto overflow-clip transition-shadow duration-300 ease-out hover:shadow-lg">
+  <picture class="col-start-1 col-end-1 row-start-1 -row-end-1 z-0 max-h-100"
+    [style]="!theme.image ? 'background: var(--lqip)' : ''">
+    <img *ngIf="theme.image" class="w-full h-full object-cover block"
+      style="background: var(--lqip)" [srcset]="bigImage(theme)"
+      alt="{{ theme.name }}" loading="lazy">
   </picture>
-   <div class="col-start-1 col-end-1 row-start-2 p-2 bg-white/75 backdrop-blur-sm">
-     <h4 class="text-lime-950 whitespace-nowrap text-ellipsis text-balance overflow-x-hidden w-full">{{ theme.name }}</h4>
-      <p class="text-sm text-gray-400">{{ theme.date }}</p>
-            <ul class="flex flex-wrap gap-1">
-        <li *ngFor="let tag of theme.tags" class="text-sm text-gray-100 bg-lime-700 px-1.5 py-0.5 rounded" (click)="emitFilterByTag(tag)">{{ tag }}</li>
-      </ul>
-    </div>
-    <footer class="col-start-1 col-end-1 row-start-3 p-2 gap-1 flex justify-start  bg-white/75 backdrop-blur-sm">
-      <span class="">{{ theme.views }}</span>
-      <span class="">{{ theme.comments }}</span>
-      <span class=" ms-auto"><a [href]="theme.url" target="_blank">Link</a></span>
-    </footer>
+  <div
+    class="col-start-1 col-end-1 row-start-2 p-2 bg-white/95 backdrop-blur-sm">
+    <h4
+      class="text-gray-950 whitespace-nowrap text-ellipsis text-balance overflow-x-hidden w-full">
+      {{ theme.name }}</h4>
+    <p class="text-sm text-gray-600">{{ theme.date }}</p>
+    <ul class="flex flex-wrap gap-1">
+      <li *ngFor="let tag of theme.tags"
+        class="cursor-pointer hover:bg-white hover:text-lime-600 transition-all duration-300 ease-out text-sm text-gray-100 px-1.5 py-0.5 rounded"
+        [ngClass]="tagColorClass(tag)" (click)="emitFilterByTag(tag)">{{ tag }}
+      </li>
+    </ul>
+  </div>
+  <footer
+    class="col-start-1 col-end-1 row-start-3 p-2 gap-2 items-center flex justify-start  bg-white/95 backdrop-blur-sm">
+    <span class="inline-flex gap-1.5 items-start text-gray-400">
+      <span class="material-icons-outlined icon-inline">remove_red_eye</span>
+      <span class="leading-tight">{{ theme.views }}</span>
+    </span>
+    <span class="inline-flex gap-1.5 items-center text-gray-400"><span
+        class="material-icons-outlined icon-inline">comment</span>
+      <span class="leading-tight">{{ theme.comments }}</span>
+    </span>
+    <span class="ms-auto inline-flex text-gray-400">
+      <a [href]="theme.url"
+        class="inline-flex items-center gap-1 text-2xl font-medium text-lime-600 hover:text-gray-700 transition-colors"
+        title="Open link" target="_blank">
+        <span class="material-icons icon-inline">
+          open_in_new
+        </span>
+      </a>
+    </span>
+  </footer>
 </div>

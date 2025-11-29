@@ -4,22 +4,35 @@
 
 /* Global styles can go below; Tailwind utilities come from the import above. */
 @layer base {
+  @import 'material-icons/iconfont/material-icons.css';
   :root {
     --font-aldrich: "Aldrich", sans-serif;
     --font-sans: var(--font-aldrich);
     --lqip: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 37%, #e0e0e0 63%);
   }
+  .icon-inline{
+    font-size: 1em;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+  a:any-link{
+    &:hover{
+      cursor: pointer;
+    }
+  }
 }
 @layer components{
   .btn{
-    @apply px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 cursor-pointer;
+    @apply transition-all duration-300 ease-out cursor-pointer px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600;
   }
 
   .btn-primary{
-    @apply bg-green-500 hover:bg-green-600;
+    @apply transition-all duration-300 ease-out cursor-pointer bg-green-500 hover:bg-green-600;
   }
   .btn-secondary{
-    @apply bg-gray-500 hover:bg-gray-600;
+    @apply transition-all duration-300 ease-out cursor-pointer bg-gray-400 hover:bg-gray-600;
   }
 }
 @theme{
