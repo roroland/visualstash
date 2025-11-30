@@ -12,6 +12,7 @@ export class CardComponent {
 
   @Input() theme!: Theme;
   @Output() filterByTag = new EventEmitter<string>();
+  @Output() detail = new EventEmitter<{ name: string; image: string }>();
 
   private readonly tagColorClasses = [
     'bg-lime-700',
@@ -35,6 +36,14 @@ export class CardComponent {
 
   emitFilterByTag(tag: string) {
     this.filterByTag.emit(tag);
+  }
+  emitDetail() {
+    if (this.theme) {
+      this.detail.emit({
+        name: this.theme.name,
+        image: this.bigImage(this.theme)
+      });
+    }
   }
 
   tagColorClass(tag: string): string {

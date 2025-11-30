@@ -1,0 +1,17 @@
+dialog[open] {
+  position: absolute;
+inset: 0;
+  width: calc(100vw - 2rem);
+  margin: auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  background: white;
+  z-index: 1000;
+}
+
+.detail-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

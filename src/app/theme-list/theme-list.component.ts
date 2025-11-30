@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeServiceService, Theme } from '../theme-service.service';
 import { CardComponent } from '../card/card.component';
 import { FormsModule } from '@angular/forms';
+import { DetailComponent } from '../detail/detail.component';
 @Component({
   selector: 'app-theme-list',
-  imports: [CommonModule, CardComponent, FormsModule],
+  imports: [CommonModule, CardComponent, FormsModule, DetailComponent],
   templateUrl: './theme-list.component.html'
 })
 export class ThemeListComponent {
+  @ViewChild('detailDialog') detailDialog!: DetailComponent;
   allThemes: Theme[] = [];
   themes: Theme[] = [];
   pageSize = 20;
@@ -16,6 +18,26 @@ export class ThemeListComponent {
   selectedTag: string | null = null;
   orderOptions = ['Rating (desc)','Más recientes', 'Más populares', 'A-Z', 'Z-A'];
   order: string = this.orderOptions[0];
+
+  selectedDetail: { name: string; image: string } | null = null;
+  // ...existing code...
+  private pendingOpen = false;
+
+  onShowDetail(detail: { name: string; image: string }) {
+    this.selectedDetail = detail;
+    this.pendingOpen = true;
+  }
+
+  onDetailClosed() {
+    this.selectedDetail = null;
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.pendingOpen && this.detailDialog) {
+      this.detailDialog.open();
+      this.pendingOpen = false;
+    }
+  }
 
   constructor(private themeService: ThemeServiceService) {
     this.themeService.getThemes().subscribe(data => {
