@@ -49,10 +49,26 @@
 
 @layer utilities {
   .scroll-zoom {
-    animation: scroll-zoom 1 linear both;
+    animation: scroll-zoom linear both;
     animation-timeline: view(block);
     animation-range: entry -10% exit 80%;
     animation-delay: calc(var(--index) * 0.5s);
+  }
+    .waves{
+      .w1, .w2, .w3, .w4, .w5, .w6{
+        animation: wave-anim linear both;
+        animation-timeline: scroll(root);
+        animation-range: entry calc(var(--delay, 0) * 5%) exit calc(50% + var(--delay, 0) * 5%);
+      }
+    }
+  }
+
+@keyframes wave-anim{
+  0% {
+    transform: translateY(0rem);
+  }
+  100% {
+    transform: translateY(10rem);
   }
 }
 @keyframes scroll-zoom {
