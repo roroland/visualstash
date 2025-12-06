@@ -54,18 +54,27 @@
     animation-range: entry -10% exit 80%;
     animation-delay: calc(var(--index) * 0.5s);
   }
-    .waves{
-      .w1, .w2, .w3, .w4, .w5, .w6{
-        animation: wave-anim linear both;
-        animation-timeline: scroll(root);
-        animation-range: entry calc(var(--delay, 0) * 5%) exit calc(50% + var(--delay, 0) * 5%);
-      }
+  .waves{
+    .w1, .w2, .w3, .w4, .w5, .w6{
+      animation: wave-anim linear both, waves-hz 4s ease-in-out infinite;
+      animation-timeline: scroll(root);
+      animation-range: entry calc(var(--delay, 0) * 5%) exit calc(50% + var(--delay, 0) * 5%);
     }
   }
+}
+
+@keyframes waves-hz{
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20rem);
+  }
+}
 
 @keyframes wave-anim{
   0% {
-    transform: translateY(0rem);
+    transform: translateY(-10rem);
   }
   100% {
     transform: translateY(10rem);
