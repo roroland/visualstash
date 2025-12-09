@@ -12,7 +12,7 @@
   </fieldset>
 </div>
 <ul class="grid-cols-1 grid-rows-[repeat(auto-fit,minmax(250px,auto))] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 col-start-2 col-end-12 grid lg:grid-flow-row-dense h-fit">
-    <li app-card (filterByTag)="onFilterByTag($event)" (detail)="onShowDetail($event)" class="h-full flex lg:nth-of-type-[6n-1]:col-span-2 lg:nth-of-type-[6n-1]:row-span-2 lg:row-span-1 scroll-zoom" [style]="'--index:' + i" [theme]="theme" *ngFor="let theme of pagedThemes; let i = index"></li>
+    <li app-card (filterByTag)="onFilterByTag($event)" (detail)="onShowDetail($event)" class="h-full flex lg:nth-of-type-[6n-1]:col-span-2 lg:nth-of-type-[6n-1]:row-span-2 lg:row-span-1 scroll-zoom rounded-2xl bg-white" [style]="'--index:' + i" [theme]="theme" *ngFor="let theme of pagedThemes; let i = index"></li>
 </ul>
 <app-detail #detailDialog *ngIf="selectedDetail" (afterClosed)="onDetailClosed()" [name]="selectedDetail.name" [image]="selectedDetail.image" class="contents"></app-detail>
 <div class="flex items-center gap-4 mt-20 mb-10 col-start-1 col-end-13 justify-center">

@@ -48,11 +48,24 @@
 }
 
 @layer utilities {
+  .is-sticky {
+    display: block;
+    position: sticky;
+    top: 0;
+    background-color: var(--color-white);
+    z-index: 1;
+    .logo{
+      animation: scale linear both;
+      animation-timeline: scroll();
+      animation-range: 0% 10%;
+    }
+  }
   .scroll-zoom {
     animation: scroll-zoom linear both;
     animation-timeline: view(block);
     animation-range: entry -10% exit 80%;
     animation-delay: calc(var(--index) * 0.5s);
+    perspective: 1000px;
   }
   .waves{
     .w1, .w2, .w3, .w4, .w5, .w6{
@@ -84,7 +97,7 @@
 @keyframes scroll-zoom {
   0% {
     transform: translateY(3rem) scale(0.8);
-    opacity: 0.75;
+    opacity: 0.25;
   }
   45%, 80% {
     transform: translateY(0) scale(1);
@@ -93,5 +106,11 @@
   100% {
     transform: translateY(-20.5rem) scale(0.8);
     opacity: 0.5;
+  }
+}
+@keyframes scale{
+  to{
+    transform: scale(.9);
+    padding-block: 1rem;
   }
 }
