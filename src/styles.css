@@ -56,19 +56,20 @@
   }
   .waves{
     .w1, .w2, .w3, .w4, .w5, .w6{
-      animation: wave-anim linear both, waves-hz 4s ease-in-out infinite;
-      animation-timeline: scroll(root);
-      animation-range: entry calc(var(--delay, 0) * 5%) exit calc(50% + var(--delay, 0) * 5%);
+      animation: waves-hz 10s ease-in-out infinite calc(var(--delay) * .5s);
     }
   }
 }
 
 @keyframes waves-hz{
   0%, 100% {
-    transform: translateX(0);
+    transform: translate(0, 0);
   }
-  50% {
-    transform: translateX(-20rem);
+  25%{
+    transform: translate(-10%, 2%);
+  }
+  75% {
+    transform: translate(1%, -2%);
   }
 }
 
