@@ -1,6 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
 @import "tailwindcss";
 
+@property --gradient-progress {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 60%;
+}
+
+:root{
+  --gradient-progress: 60%;
+}
 
 /* Global styles can go below; Tailwind utilities come from the import above. */
 @layer base {
@@ -55,7 +64,7 @@
     z-index: 1;
     .logo{
       animation: scale linear both;
-      background: linear-gradient(to bottom, white 60%, transparent 100%);
+      background: linear-gradient(to bottom, white var(--gradient-progress), transparent 100%);
       animation-timeline: scroll();
       animation-range: 0% 10%;
       img{
@@ -115,12 +124,12 @@
 }
 @keyframes scale{
   to{
-    background: linear-gradient(to bottom, white 90%, transparent 0%);;
-    padding-block: 1rem;
+    --gradient-progress: 100%;
+    padding-block: 0;
   }
 }
 @keyframes scale-logo{
   to{
-    transform: scale(0.8);
+    transform: scale(0.7);
   }
 }
