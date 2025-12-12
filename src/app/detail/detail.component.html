@@ -1,7 +1,8 @@
 <dialog #dialog>
   <div class="detail-popup">
     <h2>{{ name }}</h2>
-    <img *ngIf="image" [src]="image" alt="{{ name }}" />
+    <div class="spinner" *ngIf="!image"></div>
+    <img *ngIf="image" (error)="showSpinner()" [src]="image" alt="{{ name }}" />
     <button (click)="close()">Cerrar</button>
   </div>
 </dialog>

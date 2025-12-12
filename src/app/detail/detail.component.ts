@@ -23,6 +23,10 @@ export class DetailComponent {
       .finally(() => this.afterClosed.emit());
   }
 
+  showSpinner(): void {
+    this.image = '';
+  }
+
   private runDialogTransition(action: () => void): Promise<void> {
     const doc = document as Document & {
       startViewTransition?: (callback: () => void) => {
