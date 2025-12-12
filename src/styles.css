@@ -11,6 +11,9 @@
   --gradient-progress: 60%;
   --gradient-color: rgba(255, 255, 255, 1);
 }
+@view-transition {
+  navigation: auto;
+}
 
 /* Global styles can go below; Tailwind utilities come from the import above. */
 @layer base {
@@ -56,6 +59,39 @@
   --color-gray-100: #E5E5E5;
   --color-gray-50: #F5F5F5;
 }
+dialog {
+  view-transition-name: modal;
+  max-width: 75vw;
+}
+
+::view-transition-old(modal),
+::view-transition-new(modal) {
+  animation-duration: 500ms;
+  animation-timing-function: ease-out;
+}
+
+::view-transition-new(modal) {
+  animation-name: dialog-in;
+}
+
+::view-transition-old(modal) {
+  animation-name: dialog-out;
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(100vh) scale(0);
+  }
+}
+
+@keyframes dialog-out {
+  to {
+    opacity: 0;
+    transform: translateY(100vh) scale(0);
+  }
+}
+
 
 @layer utilities {
   .is-sticky {

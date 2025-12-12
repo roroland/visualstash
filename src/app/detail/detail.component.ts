@@ -15,10 +15,27 @@ export class DetailComponent {
   @Output() afterClosed = new EventEmitter<void>();
 
   open(): void {
-    this.dialog.nativeElement.showModal();
+    void this.runDialogTransition(() => this.dialog.nativeElement.showModal());
   }
   close(): void {
-    this.dialog.nativeElement.close();
-    this.afterClosed.emit();
+    this.runDialogTransition(() => this.dialog.nativeElement.close())
+      .catch(() => void 0)
+      .finally(() => this.afterClosed.emit());
+  }
+
+  private runDialogTransition(action: () => void): Promise<void> {
+    const doc = document as Document & {
+      startViewTransition?: (callback: () => void) => {
+        finished: Promise<void>;
+      };
+    };
+
+    if (doc.startViewTransition) {
+      const transition = doc.startViewTransition(() => action());
+      return transition.finished;
+    }
+
+    action();
+    return Promise.resolve();
   }
 }
