@@ -9,6 +9,7 @@
 
 :root{
   --gradient-progress: 60%;
+  --gradient-color: rgba(255, 255, 255, 1);
 }
 
 /* Global styles can go below; Tailwind utilities come from the import above. */
@@ -64,7 +65,7 @@
     z-index: 1;
     .logo{
       animation: scale linear both;
-      background: linear-gradient(to bottom, white var(--gradient-progress), transparent 100%);
+      background: linear-gradient(to bottom, var(--gradient-color) var(--gradient-progress), transparent 100%);
       animation-timeline: scroll();
       animation-range: 0% 10%;
       img{
@@ -125,7 +126,10 @@
 @keyframes scale{
   to{
     --gradient-progress: 100%;
+    --gradient-color: rgba(255, 255, 255, .75);
+    backdrop-filter: blur(8px);
     padding-block: 0;
+    box-shadow: var(--shadow-lg);
   }
 }
 @keyframes scale-logo{
