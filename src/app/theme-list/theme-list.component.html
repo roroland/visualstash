@@ -6,7 +6,7 @@
 </div>
 <div class="flex justify-self-end col-end-12 gap-2 mt-10 mb-4 p-2 sticky top-40 bg-white/70 py-2 rounded-2xl backdrop-blur-lg z-10 shadow-xl">
   <fieldset>
-    <select [(ngModel)]="order" (change)="orderBy(order)">
+    <select [(ngModel)]="order" name="order" (change)="orderBy(order)">
       <option *ngFor="let item of orderOptions" [value]="item">{{item}}</option>
     </select>
   </fieldset>

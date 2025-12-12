@@ -16,7 +16,7 @@ export class ThemeListComponent {
   pageSize = 20;
   currentPage = 1;
   selectedTag: string | null = null;
-  orderOptions = ['Rating (desc)','Más recientes', 'Más populares', 'A-Z', 'Z-A'];
+  orderOptions = ['Más recientes', 'Más populares', 'Rating (desc)', 'A-Z', 'Z-A'];
   order: string = this.orderOptions[0];
 
   selectedDetail: { name: string; image: string } | null = null;
@@ -72,9 +72,6 @@ export class ThemeListComponent {
     this.order = option;
     // Implement sorting logic based on the selected option
     switch(option) {
-      case 'Rating (desc)':
-        this.themes.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
-        break;
       case 'Más recientes':
         this.themes.sort((a, b) =>
           new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime()
@@ -82,6 +79,9 @@ export class ThemeListComponent {
         break;
       case 'Más populares':
         this.themes.sort((a, b) => (b.views ?? 0) - (a.views ?? 0));
+        break;
+      case 'Rating (desc)':
+        this.themes.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
         break;
       case 'A-Z':
         this.themes.sort((a, b) => a.name.localeCompare(b.name));
