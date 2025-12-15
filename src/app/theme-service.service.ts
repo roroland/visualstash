@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Injectable, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 export interface Theme {
   id: string;
@@ -23,19 +24,22 @@ type ThemeResponse = Theme[] | Theme[][];
   providedIn: 'root',
 })
 export class ThemeServiceService {
-  constructor(private http: HttpClient) {}
+  readonly themes: Signal<Theme[]>;
 
-  getThemes(): Observable<Theme[]> {
-    return this.http.get<ThemeResponse>('assets/data/themes.json?v=' + new Date().getTime()).pipe(
-      map((res) => {
-        if (!Array.isArray(res)) {
-          return [];
-        }
-        if (res.length > 0 && Array.isArray(res[0])) {
-          return (res as Theme[][]).flat();
-        }
-        return res as Theme[];
-      })
+  constructor(private http: HttpClient) {
+    this.themes = toSignal(
+      this.http.get<ThemeResponse>('assets/data/themes.json?v=' + new Date().getTime()).pipe(
+        map((res) => {
+          if (!Array.isArray(res)) {
+            return [];
+          }
+          if (res.length > 0 && Array.isArray(res[0])) {
+            return (res as Theme[][]).flat();
+          }
+          return res as Theme[];
+        })
+      ),
+      { initialValue: [] }
     );
   }
 

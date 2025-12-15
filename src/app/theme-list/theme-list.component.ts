@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, ViewChild, AfterViewChecked, computed, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeServiceService, Theme } from '../theme-service.service';
 import { CardComponent } from '../card/card.component';
@@ -11,24 +11,31 @@ import { DetailComponent } from '../detail/detail.component';
 })
 export class ThemeListComponent {
   @ViewChild('detailDialog') detailDialog!: DetailComponent;
-  allThemes: Theme[] = [];
-  themes: Theme[] = [];
+  allThemes = signal<Theme[]>([]);
+  themes = signal<Theme[]>([]);
   pageSize = 20;
-  currentPage = 1;
-  selectedTag: string | null = null;
+  currentPage = signal(1);
+  selectedTag = signal<string | null>(null);
   orderOptions = ['Más recientes', 'Más populares', 'Rating (desc)', 'A-Z', 'Z-A'];
-  order: string = this.orderOptions[0];
+  order = signal(this.orderOptions[0]);
 
-  selectedDetail: { name: string; image: string } | null = null;
+  selectedDetail = signal<{ name: string; image: string } | null>(null);
   private pendingOpen = false;
 
+  readonly pagedThemes = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize;
+    return this.themes().slice(start, start + this.pageSize);
+  });
+
+  readonly totalPages = computed(() => Math.ceil(this.themes().length / this.pageSize));
+
   onShowDetail(detail: { name: string; image: string }) {
-    this.selectedDetail = detail;
+    this.selectedDetail.set(detail);
     this.pendingOpen = true;
   }
 
   onDetailClosed() {
-    this.selectedDetail = null;
+    this.selectedDetail.set(null);
   }
 
   ngAfterViewChecked(): void {
@@ -39,68 +46,60 @@ export class ThemeListComponent {
   }
 
   constructor(private themeService: ThemeServiceService) {
-    this.themeService.getThemes().subscribe(data => {
-      this.allThemes = data;
-      this.themes = data;
+    effect(() => {
+      const data = this.themeService.themes();
+      this.allThemes.set(data);
+      this.themes.set(data);
     });
   }
 
-  get pagedThemes(): Theme[] {
-    const start = (this.currentPage - 1) * this.pageSize;
-    return this.themes.slice(start, start + this.pageSize);
-  }
-
-  get totalPages(): number {
-    return Math.ceil(this.themes.length / this.pageSize);
-  }
-
   nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
+    if (this.currentPage() < this.totalPages()) {
+      this.currentPage.set(this.currentPage() + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
   previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
+    if (this.currentPage() > 1) {
+      this.currentPage.set(this.currentPage() - 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
   orderBy(option: string) {
-    this.order = option;
-    // Implement sorting logic based on the selected option
-    switch(option) {
-      case 'Más recientes':
-        this.themes.sort((a, b) =>
-          new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime()
-        );
-        break;
-      case 'Más populares':
-        this.themes.sort((a, b) => (b.views ?? 0) - (a.views ?? 0));
-        break;
-      case 'Rating (desc)':
-        this.themes.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
-        break;
-      case 'A-Z':
-        this.themes.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'Z-A':
-        this.themes.sort((a, b) => b.name.localeCompare(a.name));
-        break;
-    }
+    this.order.set(option);
+    this.themes.update((items) => {
+      const list = items.slice();
+
+      switch (option) {
+        case 'Más recientes':
+          return list.sort((a, b) =>
+            new Date(b.date ?? 0).getTime() - new Date(a.date ?? 0).getTime()
+          );
+        case 'Más populares':
+          return list.sort((a, b) => (b.views ?? 0) - (a.views ?? 0));
+        case 'Rating (desc)':
+          return list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+        case 'A-Z':
+          return list.sort((a, b) => a.name.localeCompare(b.name));
+        case 'Z-A':
+          return list.sort((a, b) => b.name.localeCompare(a.name));
+        default:
+          return list;
+      }
+    });
   }
 
   onFilterByTag(tag: string) {
-    this.selectedTag = tag;
-    this.themes = this.themeService.filterTags(this.allThemes, tag);
-    this.currentPage = 1;
+    this.selectedTag.set(tag);
+    this.themes.set(this.themeService.filterTags(this.allThemes(), tag));
+    this.currentPage.set(1);
   }
 
   clearTagFilter() {
-    this.selectedTag = null;
-    this.themes = this.allThemes;
-    this.currentPage = 1;
+    this.selectedTag.set(null);
+    this.themes.set(this.allThemes());
+    this.currentPage.set(1);
   }
 }
