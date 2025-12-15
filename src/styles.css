@@ -11,6 +11,7 @@
   --gradient-progress: 60%;
   --gradient-color: rgba(255, 255, 255, 1);
 }
+
 @view-transition {
   navigation: auto;
 }
@@ -62,6 +63,24 @@
 dialog {
   view-transition-name: modal;
   max-width: 75vw;
+  > div{
+    justify-content: center;
+    height: 100%;
+  }
+  button{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    background: transparent;
+    border: none;
+    color: var(--color-lime-500);
+    transition: color .3s ease-out;
+    cursor: pointer;
+    &:hover{
+      color: var(--color-gray-500);
+    }
+  }
 }
 
 ::view-transition-old(modal),

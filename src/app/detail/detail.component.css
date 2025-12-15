@@ -1,12 +1,18 @@
 dialog[open] {
-  position: absolute;
-inset: 0;
-  width: calc(100vw - 2rem);
+  position: fixed;
+  inset: 0;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(1800px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
   padding: 2rem;
   border-radius: 1rem;
+  border: none;
   box-shadow: 0 8px 32px rgba(0,0,0,0.2);
   background: white;
+  overflow: auto;
   z-index: 1000;
 }
 

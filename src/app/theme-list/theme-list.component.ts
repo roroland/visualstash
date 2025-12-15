@@ -48,7 +48,6 @@ export class ThemeListComponent {
 
   get pagedThemes(): Theme[] {
     const start = (this.currentPage - 1) * this.pageSize;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     return this.themes.slice(start, start + this.pageSize);
   }
 
@@ -59,12 +58,14 @@ export class ThemeListComponent {
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
