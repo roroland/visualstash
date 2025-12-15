@@ -31,6 +31,14 @@
     align-items: center;
     vertical-align: middle;
   }
+  .logo{
+    --logo-slogan-size: 2.5rem;
+  }
+  .logo p{
+    flex: none;
+    max-height: var(--logo-slogan-size);
+    overflow: hidden;
+  }
   a:any-link{
     &:hover{
       cursor: pointer;
@@ -134,7 +142,12 @@ dialog {
       img{
         animation: scale-logo linear both;
         animation-timeline: scroll();
-        animation-range: 0% 10%;
+        animation-range: 5% 10%;
+      }
+      p{
+        animation: logo-slogan-fade linear both;
+        animation-timeline: scroll();
+        animation-range: 0% 5%;
       }
     }
   }
@@ -192,11 +205,28 @@ dialog {
     --gradient-color: rgba(255, 255, 255, .75);
     backdrop-filter: blur(8px);
     padding-block: 0;
+    gap: 0;
     box-shadow: var(--shadow-lg);
   }
 }
 @keyframes scale-logo{
   to{
-    transform: scale(0.7);
+    transform: scale(0.3);
+  }
+}
+
+@keyframes logo-slogan-fade{
+  0%{
+    opacity: 1;
+    max-height: var(--logo-slogan-size);
+    padding-block-end: 1rem;
+  }
+  50%{
+    opacity: 0.25;
+  }
+  100%{
+    opacity: 0;
+    max-height: 0;
+    padding-block-end: 0;
   }
 }
