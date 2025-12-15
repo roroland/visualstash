@@ -20,7 +20,6 @@ export class ThemeListComponent {
   order: string = this.orderOptions[0];
 
   selectedDetail: { name: string; image: string } | null = null;
-  // ...existing code...
   private pendingOpen = false;
 
   onShowDetail(detail: { name: string; image: string }) {
